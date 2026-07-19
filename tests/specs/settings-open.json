@@ -1,19 +1,72 @@
 [
   {
-    "name": "Settings",
+    "name": "Settings shows settings panel",
     "steps": [
       {
+        "send": { "callback": "settings:open" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "⚙️ Settings\n\nTimezone: UTC\nQuiet hours: 22:00–08:00\nMorning summary: Off (08:00)\nCooldown: 15 min"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Settings - change timezone",
+    "steps": [
+      {
+        "send": { "callback": "settings:open" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "settings:tz" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Type your timezone (e.g. America/New_York, Europe/London, Asia/Tokyo)."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "America/New_York" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Configure quiet hours, morning summary time, and alert cooldowns"
+              "text": "✅ Timezone set to America/New_York."
             }
           }
-        ],
-        "send": {
-          "callback": "settings:open"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Settings - toggle morning summary",
+    "steps": [
+      {
+        "send": { "callback": "settings:open" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "settings:summary" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
       }
     ]
   }

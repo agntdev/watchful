@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Morning summary with empty watchlist",
+    "steps": [
+      {
+        "send": { "callback": "morning:show" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Your watchlist is empty — tap 🪙 Add Coin to start tracking one."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
