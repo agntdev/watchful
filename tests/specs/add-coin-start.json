@@ -1,19 +1,41 @@
 [
   {
-    "name": "Add Coin",
+    "name": "Add Coin starts the add-coin flow",
     "steps": [
       {
+        "send": { "callback": "add_coin:start" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Type the ticker symbol of the coin you want to track (e.g. BTC, ETH, SOL)."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Add coin flow - coin not found",
+    "steps": [
+      {
+        "send": { "callback": "add_coin:start" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "sendMessage" }
+        ]
+      },
+      {
+        "send": { "text": "ZZZZZ" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Begin adding a new cryptocurrency to the watchlist"
+              "text": "Couldn't find any coins matching \"ZZZZZ\". Check the spelling and try again."
             }
           }
-        ],
-        "send": {
-          "callback": "add_coin:start"
-        }
+        ]
       }
     ]
   }

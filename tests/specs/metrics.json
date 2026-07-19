@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Owner metrics shows metrics when no owner configured",
+    "steps": [
+      {
+        "send": { "callback": "owner:metrics" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "sendMessage" }
+        ]
+      }
+    ]
+  }
+]

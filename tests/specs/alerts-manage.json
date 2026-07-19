@@ -1,19 +1,59 @@
 [
   {
-    "name": "Manage Alerts",
+    "name": "Manage Alerts shows empty state",
     "steps": [
       {
+        "send": { "callback": "alerts:manage" },
         "expect": [
+          { "method": "answerCallbackQuery" },
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "View and modify existing alert rules for watchlist entries"
+              "text": "No alerts yet — tap Create Alert to set one up."
             }
           }
-        ],
-        "send": {
-          "callback": "alerts:manage"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Alert creation - select type",
+    "steps": [
+      {
+        "send": { "callback": "alerts:manage" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "alerts:create" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "What type of alert?"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Price alert needs coins in watchlist",
+    "steps": [
+      {
+        "send": { "callback": "alerts:price_threshold" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Add a coin to your watchlist first."
+            }
+          }
+        ]
       }
     ]
   }

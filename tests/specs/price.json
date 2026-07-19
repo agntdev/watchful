@@ -1,19 +1,49 @@
 [
   {
-    "name": "/price",
+    "name": "/price with empty watchlist",
     "steps": [
       {
+        "send": { "text": "/price" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Check current price of a specific coin or list all watched coins"
+              "text": "Your watchlist is empty — tap 🪙 Add Coin to start tracking one."
             }
           }
-        ],
-        "send": {
-          "text": "/price"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "price menu button with empty watchlist",
+    "steps": [
+      {
+        "send": { "callback": "price:menu" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Your watchlist is empty — tap 🪙 Add Coin to start tracking one."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/price BTC with coin not in watchlist",
+    "steps": [
+      {
+        "send": { "text": "/price BTC" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Couldn't find BTC in your watchlist. Add it first with the Add Coin button."
+            }
+          }
+        ]
       }
     ]
   }
